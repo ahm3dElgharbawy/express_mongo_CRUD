@@ -15,7 +15,7 @@ router.get('/views/update',(req,res)=>{
     res.render('update_user');
 });
 router.post('/create',usersController.createUser);
-router.post('/update', usersController.updateUser);
+router.post('/update/:id', usersController.updateUser);
 router.get('/delete/:id', usersController.deleteUser);
 
 

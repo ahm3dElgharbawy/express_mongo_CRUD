@@ -40,14 +40,15 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     if (!req.body) {
-        res.status(400).send({ message: "you have some empty fields" });
+        return res.status(400).send({ message: "you have some empty fields" });
     }
     const id = req.params.id;
     await UserModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then((data) => {
         if (data) {
-            res.send({
-                message: "user updated successfully"
-            })
+            // res.send({
+            //     message: "user updated successfully"
+            // })
+            res.redirect('/');
         }
         else {
             res.status(404).send({ message: "user not found" });

@@ -1,4 +1,4 @@
-<%- layout('layout') %>
+<div class="container">
   <div class="my-5">
     <a href="/views/create" class="btn btn-primary">Add User</a>
   </div>
@@ -20,9 +20,56 @@
           </p>
         </div>
         <div class="card-footer">
-          <a href="/views/update" class="btn btn-primary">Edit</a>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Edit</button>
           <a href="/delete/<%=users[i].id%>" class="btn btn-danger">Delete</a>
         </div>
       </div>
       <%}%>
   </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post"> <!-- I will add it later-->
+          <div class="mb-3">
+            <label for="username" class="form-label">User Name</label>
+            <input type="text" class="form-control username" id="username" name="username" placeholder="username">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control email" id="email" name="email" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control password" id="password" name="password" placeholder="password">
+          </div>
+          <div class="my-4 text-end">
+            <button type="button" class="btn btn-secondary" id="update" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const myModal = document.getElementById('myModal')
+  myModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+
+    const data = button.parentElement.parentElement.querySelectorAll('.card-header,  .card-text, .card-title');
+    
+    myModal.querySelector('form').setAttribute('action', `/update/${data[0].innerText}`) 
+    myModal.querySelector('.username').value = data[1].innerText;
+    myModal.querySelector('.email').value = data[2].innerText;
+    myModal.querySelector('.password').value = data[3].innerText;
+
+  })
+</script>

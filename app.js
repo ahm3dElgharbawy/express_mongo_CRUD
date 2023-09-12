@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 const dbConfig = require('./database.config');
 const mongoose = require('mongoose');
-const engine = require('ejs-blocks');
+var expressLayouts = require('express-ejs-layouts');
 
 
 var usersRouter = require('./routes/users');
@@ -23,8 +23,9 @@ app.use(bodyParser.json())
 
 // view engine setup
 app.set('views', 'views');
-app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
+
 
 app.use(express.static('public'));
 
